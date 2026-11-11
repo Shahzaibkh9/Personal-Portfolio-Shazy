@@ -88,6 +88,9 @@ export default function App() {
     <>
       <div className="bg-layer" aria-hidden="true">
         <div className="bg-grid" />
+        <div className="blob b1" />
+        <div className="blob b2" />
+        <div className="blob b3" />
       </div>
       <MatrixRain active={target === 'hacker'} />
       <Background target={target} />
@@ -102,7 +105,7 @@ export default function App() {
           <span>
             © {new Date().getFullYear()} {NAME}
           </span>
-          <span className="muted">{mode === 'hacker' ? '// built with three.js · no systems were harmed' : 'Designed and built in Karachi · React + Three.js'}</span>
+          <span className="muted">{mode === 'hacker' ? '// built with three.js · no systems were harmed' : 'Designed & built with React + Three.js'}</span>
           <button className="text-link" onClick={toggle}>
             {mode === 'hacker' ? 'switch to developer mode ☀' : 'switch to hacker mode ☾'}
           </button>

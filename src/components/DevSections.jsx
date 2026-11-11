@@ -1,118 +1,119 @@
 import { certifications, dev, education } from '../data/content'
 import { links, linkList } from '../data/links'
+import ProjectArt from './ProjectArt'
+import { Icon, SectionHead, TagSphere, TiltCard } from './ui'
 
-const Label = ({ n, children }) => (
-  <div className="d-label">
-    <span>{n}</span>
-    {children}
-  </div>
-)
-
-const host = (url) => url.replace(/^https?:\/\//, '').replace(/\/$/, '')
+const M = 'dev'
 
 function About() {
   return (
-    <section id="about" className="d-sec">
-      <div className="container d-grid">
-        <Label n="01">About</Label>
-        <div className="d-body reveal">
-          <p className="d-big">{dev.about[0]}</p>
-          <div className="d-cols">
-            {dev.about.slice(1).map((p, i) => (
+    <section id="about" className="section">
+      <div className="container">
+        <SectionHead mode={M} index={1} title="About" sub="Code, AI and product thinking." />
+        <div className="about-grid">
+          <div className="about-text reveal">
+            {dev.about.map((p, i) => (
               <p key={i}>{p}</p>
             ))}
+            <p className="belief">“{dev.belief}”</p>
           </div>
-          <aside className="d-aside">
-            <div>
-              <div className="d-mono">Founder</div>
-              <h3>Pixel Canvas</h3>
+          <TiltCard className="card pc-card reveal" max={8}>
+            <div className="pc-logo">
+              <Icon name="layers" size={30} />
             </div>
-            <div>
-              <p>{dev.pixelCanvas}</p>
-              <p className="d-mono">Software · AI · Automation · Branding</p>
-              {links.pixelcanvas && (
-                <a href={links.pixelcanvas} target="_blank" rel="noreferrer" className="d-link">
-                  Visit Pixel Canvas ↗
-                </a>
-              )}
+            <span className="eyebrow">Founder</span>
+            <h3>Pixel Canvas</h3>
+            <p>{dev.pixelCanvas}</p>
+            <div className="tags">
+              {['Software', 'AI', 'Automation', 'Digital Experiences'].map((t) => (
+                <span key={t} className="tag">
+                  {t}
+                </span>
+              ))}
             </div>
-          </aside>
-          <p className="d-pull">{dev.belief}</p>
+            {links.pixelcanvas && (
+              <a href={links.pixelcanvas} target="_blank" rel="noreferrer" className="text-link">
+                Visit Pixel Canvas <Icon name="ext" size={14} />
+              </a>
+            )}
+          </TiltCard>
         </div>
       </div>
     </section>
   )
 }
 
-function Work() {
+function Skills() {
   return (
-    <section id="projects" className="d-sec">
-      <div className="container d-grid">
-        <Label n="02">Selected work</Label>
-        <div className="d-body">
-          <h2 className="d-h2 reveal">
-            A few things I’ve <em>built</em> lately.
-          </h2>
-          <div className="d-projects">
-            {dev.projects.map((p, i) => (
-              <article key={p.title} className="d-project reveal">
-                <div className="d-p-num">{String(i + 1).padStart(2, '0')}</div>
-                <div>
-                  <div className="d-p-meta d-mono">
-                    <span className={`d-status ${p.url ? 'live' : ''}`}>{p.kind}</span>
-                  </div>
-                  <h3 className="d-p-title">{p.title}</h3>
-                  <p>{p.desc}</p>
-                  <ul className="d-p-feat">
-                    {p.features.map((f) => (
-                      <li key={f}>{f}</li>
-                    ))}
-                  </ul>
+    <section id="skills" className="section">
+      <div className="container">
+        <SectionHead mode={M} index={2} title="Expertise" sub="The tools I build with." />
+        <div className="skills-grid">
+          <div className="card-grid two">
+            {dev.expertise.map((g, i) => (
+              <TiltCard key={g.title} className="card skill-card reveal" style={{ transitionDelay: `${i * 80}ms` }}>
+                <div className="skill-ico">
+                  <Icon name={g.icon} size={22} />
                 </div>
-                <div className="d-p-side">
-                  <div className="d-p-stack">
-                    {p.tech.map((t) => (
-                      <div key={t}>{t}</div>
-                    ))}
-                  </div>
-                  {p.url ? (
-                    <a href={p.url} target="_blank" rel="noreferrer" className="d-link strong">
-                      {host(p.url)} ↗
-                    </a>
-                  ) : (
-                    <span className="d-note">Not public yet</span>
-                  )}
+                <h3>{g.title}</h3>
+                <div className="tags">
+                  {g.items.map((x) => (
+                    <span key={x} className="tag">
+                      {x}
+                    </span>
+                  ))}
                 </div>
-              </article>
+              </TiltCard>
             ))}
           </div>
+          <div className="sphere-box reveal">
+            <TagSphere tags={dev.cloud} />
+            <span className="sphere-hint">Hover to spin</span>
+          </div>
         </div>
       </div>
     </section>
   )
 }
 
-function Toolbox() {
+function Projects() {
   return (
-    <section id="skills" className="d-sec">
-      <div className="container d-grid">
-        <Label n="03">Toolbox</Label>
-        <div className="d-body">
-          <h2 className="d-h2 reveal">
-            What I reach for <em>most days.</em>
-          </h2>
-          <div className="d-tools reveal">
-            {dev.expertise.map((g) => (
-              <div key={g.title}>
-                <h4>{g.title}</h4>
-                <ul>
-                  {g.items.map((x) => (
-                    <li key={x}>{x}</li>
+    <section id="projects" className="section">
+      <div className="container">
+        <SectionHead mode={M} index={3} title="Selected Projects" sub="Ideas turned into working products." />
+        <div className="projects">
+          {dev.projects.map((p, i) => (
+            <TiltCard key={p.title} className={`card project reveal art-${p.art}`} max={6} style={{ transitionDelay: `${(i % 2) * 100}ms` }}>
+              <div className="project-art">
+                <ProjectArt type={p.art} />
+                <span className={`kind ${p.url ? 'live' : ''}`}>
+                  {p.url && <span className="pulse" />} {p.kind}
+                </span>
+              </div>
+              <div className="project-body">
+                <span className="project-num">0{i + 1}</span>
+                <h3>{p.title}</h3>
+                <p>{p.desc}</p>
+                <ul className="feat">
+                  {p.features.map((f) => (
+                    <li key={f}>{f}</li>
                   ))}
                 </ul>
+                <div className="tags">
+                  {p.tech.map((t) => (
+                    <span key={t} className="tag">
+                      {t}
+                    </span>
+                  ))}
+                </div>
+                {p.url && (
+                  <a href={p.url} target="_blank" rel="noreferrer" className="btn btn-primary btn-sm">
+                    Visit live site <Icon name="ext" size={14} />
+                  </a>
+                )}
               </div>
-            ))}
-          </div>
+            </TiltCard>
+          ))}
         </div>
       </div>
     </section>
@@ -121,27 +122,29 @@ function Toolbox() {
 
 function Experience() {
   return (
-    <section id="experience" className="d-sec">
-      <div className="container d-grid">
-        <Label n="04">Experience</Label>
-        <div className="d-body">
-          <h2 className="d-h2 reveal">
-            Building, running a studio, and <em>teaching.</em>
-          </h2>
-          <div className="d-rows">
-            {dev.experience.map((e) => (
-              <div key={e.role + e.org} className="d-row reveal">
-                <div className="d-when">{e.period}</div>
-                <div>
-                  <h3>
-                    {e.role}, <span>{e.org}</span>
-                  </h3>
-                  <p>{e.summary}</p>
-                  {e.points.length > 0 && <p className="d-sub">{e.points.join(' · ')}</p>}
-                </div>
-              </div>
-            ))}
-          </div>
+    <section id="experience" className="section">
+      <div className="container">
+        <SectionHead mode={M} index={4} title="Experience" sub="Building, founding and teaching." />
+        <div className="timeline">
+          {dev.experience.map((e, i) => (
+            <div key={e.role + e.org} className="tl-item reveal" style={{ transitionDelay: `${i * 90}ms` }}>
+              <span className="tl-dot" />
+              <TiltCard className="card" max={4}>
+                <span className="eyebrow">{e.period}</span>
+                <h3>
+                  {e.role} <span className="muted">· {e.org}</span>
+                </h3>
+                <p>{e.summary}</p>
+                {e.points.length > 0 && (
+                  <ul className="feat">
+                    {e.points.map((x) => (
+                      <li key={x}>{x}</li>
+                    ))}
+                  </ul>
+                )}
+              </TiltCard>
+            </div>
+          ))}
         </div>
       </div>
     </section>
@@ -149,20 +152,22 @@ function Experience() {
 }
 
 function Approach() {
+  const icons = ['target', 'tools', 'bulb']
   return (
-    <section className="d-sec">
-      <div className="container d-grid">
-        <Label n="05">How I work</Label>
-        <div className="d-body">
-          <div className="d-approach reveal">
-            {dev.approach.map((a, i) => (
-              <div key={a.title}>
-                <span className="n">{i + 1}.</span>
-                <h3>{a.title}</h3>
-                <p>{a.body}</p>
+    <section className="section">
+      <div className="container">
+        <SectionHead mode={M} index={5} title="My Approach" sub="Three priorities behind everything I build." />
+        <div className="card-grid three">
+          {dev.approach.map((a, i) => (
+            <TiltCard key={a.title} className="card approach reveal" style={{ transitionDelay: `${i * 100}ms` }}>
+              <span className="approach-num">{i + 1}</span>
+              <div className="skill-ico">
+                <Icon name={icons[i]} size={22} />
               </div>
-            ))}
-          </div>
+              <h3>{a.title}</h3>
+              <p>{a.body}</p>
+            </TiltCard>
+          ))}
         </div>
       </div>
     </section>
@@ -171,33 +176,37 @@ function Approach() {
 
 function Education() {
   return (
-    <section id="education" className="d-sec">
-      <div className="container d-grid">
-        <Label n="06">Education</Label>
-        <div className="d-body">
-          <div className="d-rows">
-            <div className="d-row reveal">
-              <div className="d-when">BSCS · 4 years</div>
-              <div>
-                <h3>
-                  {education.degree}, <span>FUUAST</span>
-                </h3>
-                <p>
-                  {education.school}, {education.place}.
-                </p>
-              </div>
+    <section id="education" className="section">
+      <div className="container">
+        <SectionHead mode={M} index={6} title="Education" sub="Education & certifications." />
+        <div className="card-grid two">
+          <TiltCard className="card reveal" max={5}>
+            <div className="skill-ico">
+              <Icon name="cap" size={22} />
             </div>
-            {certifications.map((c) => (
-              <div key={c.name} className="d-row reveal">
-                <div className="d-when">Certificate{c.year ? ` · ${c.year}` : ''}</div>
-                <div>
-                  <h3>
-                    {c.name}, <span>{c.org}</span>
-                  </h3>
-                </div>
-              </div>
-            ))}
-          </div>
+            <h3>{education.degree}</h3>
+            <p className="accent">{education.school}</p>
+            <p className="muted">
+              {education.place} · {education.note}
+            </p>
+          </TiltCard>
+          <TiltCard className="card reveal" max={5}>
+            <div className="skill-ico">
+              <Icon name="award" size={22} />
+            </div>
+            <h3>Certifications</h3>
+            <ul className="cert-list">
+              {certifications.map((c) => (
+                <li key={c.name}>
+                  <strong>{c.name}</strong>
+                  <span className="muted">
+                    {c.org}
+                    {c.year ? `, ${c.year}` : ''}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </TiltCard>
         </div>
       </div>
     </section>
@@ -206,22 +215,21 @@ function Education() {
 
 function Contact() {
   return (
-    <section id="contact" className="d-contact">
+    <section id="contact" className="section">
       <div className="container">
-        <Label n="07">Contact</Label>
-        <h2 className="d-huge reveal">
-          Got an idea that needs building? <em>Let’s talk.</em>
-        </h2>
-        <p className="reveal">{dev.connect}</p>
-        {linkList.length > 0 && (
-          <div className="d-contact-links reveal">
+        <div className="cta-card reveal">
+          <span className="eyebrow">07 — Contact</span>
+          <h2>Let's work together.</h2>
+          <p>{dev.connect}</p>
+          <p className="cta-line">{dev.connectLine}</p>
+          <div className="link-list">
             {linkList.map((l) => (
-              <a key={l.key} href={l.href} target="_blank" rel="noreferrer" className={`d-link ${l.key === 'email' ? 'strong' : ''}`}>
-                {l.key === 'email' ? links.email : l.label} ↗
+              <a key={l.key} href={l.href} target="_blank" rel="noreferrer" className={`btn ${l.key === 'email' ? 'btn-primary' : 'btn-ghost'}`}>
+                {l.label} <Icon name="ext" size={14} />
               </a>
             ))}
           </div>
-        )}
+        </div>
       </div>
     </section>
   )
@@ -231,8 +239,8 @@ export default function DevSections() {
   return (
     <main className="mode-content">
       <About />
-      <Work />
-      <Toolbox />
+      <Skills />
+      <Projects />
       <Experience />
       <Approach />
       <Education />

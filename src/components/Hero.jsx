@@ -43,26 +43,27 @@ function HackerHero() {
 function DevHero() {
   return (
     <div className="hero-copy dev-hero" key="d">
-      <p className="d-kicker">{dev.roles.join(' · ')}</p>
-      <h1 className="d-name">
-        Muhammad Shahzaib <em>Khateeb</em>
-        <span className="accent">.</span>
+      <div className="hello">
+        <span className="wave">👋</span> Hi, I'm
+      </div>
+      <h1 className="hero-name in">
+        <span>Muhammad Shahzaib</span>
+        <span className="grad">Khateeb</span>
       </h1>
-      <p className="d-lede">
-        {dev.tagline} <span className="muted">{dev.lede}</span>
-      </p>
-      <dl className="d-now">
-        <dt>Now</dt>
-        <dd>Running Pixel Canvas, a small digital studio</dd>
-        <dt>Also</dt>
-        <dd>Teaching Python at UKIT, since Jan 2025</dd>
-      </dl>
-      <div className="d-links-row">
-        <a href="#projects" className="d-link strong">
-          Selected work ↓
+      <div className="hero-role in">
+        <RoleCycler roles={dev.roles} />
+      </div>
+      <p className="hero-tagline in">{dev.tagline}</p>
+      <p className="hero-intro in">{dev.intro[0]}</p>
+      <div className="hero-status in">
+        <span className="pulse" /> {dev.status}
+      </div>
+      <div className="hero-cta in">
+        <a href="#projects" className="btn btn-primary">
+          View Projects <Icon name="arrow" size={16} />
         </a>
-        <a href="#contact" className="d-link">
-          Get in touch
+        <a href="#contact" className="btn btn-ghost">
+          Let's Talk
         </a>
       </div>
     </div>

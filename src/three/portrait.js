@@ -46,15 +46,19 @@ const frag = /* glsl */ `
       uv = (floor(uv * px) + 0.5) / px;
     }
 
-    // chromatic split
+    // split glitch — fringes are green / cyan only (no red-blue, so no pink or purple)
     float split = 0.0025 * uHack + 0.03 * G;
-    vec3 col = vec3(
-      texture2D(uTex, uv + vec2(split, 0.0)).r,
-      texture2D(uTex, uv).g,
-      texture2D(uTex, uv - vec2(split, 0.0)).b);
+    vec3 lw = vec3(0.299, 0.587, 0.114);
+    vec3 base = texture2D(uTex, uv).rgb;
+    float l0 = dot(base, lw);
+    float lA = dot(texture2D(uTex, uv + vec2(split, 0.0)).rgb, lw);
+    float lB = dot(texture2D(uTex, uv - vec2(split, 0.0)).rgb, lw);
+    vec3 col = base;
+    col += vec3(0.0, 1.0, 0.55) * max(lA - l0, 0.0);
+    col += vec3(0.0, 0.85, 1.0) * max(lB - l0, 0.0);
 
     // grade: green phosphor (hacker) vs warm neutral (dev)
-    float l = dot(col, vec3(0.299, 0.587, 0.114));
+    float l = dot(col, lw);
     vec3 hackCol = vec3(0.42, 1.0, 0.66) * l * 1.18 + vec3(0.0, 0.025, 0.012);
     vec3 devCol = col * vec3(1.05, 1.0, 0.94);
     col = mix(devCol, hackCol, uHack * 0.88);
