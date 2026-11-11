@@ -1004,7 +1004,7 @@ html[data-mode='dev'] .sec-title {
   transition: opacity 0.85s cubic-bezier(0.2, 0.8, 0.2, 1), translate 0.85s cubic-bezier(0.2, 0.8, 0.2, 1),
     transform 0.25s ease-out, border-color 0.3s, box-shadow 0.3s;
 }
-.reveal.in {
+.reveal[data-in] {
   opacity: 1;
   translate: 0 0;
 }

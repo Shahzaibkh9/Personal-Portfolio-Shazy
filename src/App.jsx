@@ -13,16 +13,16 @@ const DONE_AT = reducedMotion ? 400 : 2200
 
 function useReveal(dep) {
   useEffect(() => {
-    const els = document.querySelectorAll('.reveal:not(.in)')
+    const els = document.querySelectorAll('.reveal:not([data-in])')
     if (!('IntersectionObserver' in window)) {
-      els.forEach((e) => e.classList.add('in'))
+      els.forEach((e) => e.setAttribute('data-in', ''))
       return
     }
     const io = new IntersectionObserver(
       (entries) =>
         entries.forEach((en) => {
           if (en.isIntersecting) {
-            en.target.classList.add('in')
+            en.target.setAttribute('data-in', '')
             io.unobserve(en.target)
           }
         }),
