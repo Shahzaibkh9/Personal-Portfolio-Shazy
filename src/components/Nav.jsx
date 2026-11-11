@@ -12,8 +12,8 @@ const NAV = {
   ],
   dev: [
     { id: 'about', label: 'About' },
-    { id: 'skills', label: 'Skills' },
-    { id: 'projects', label: 'Projects' },
+    { id: 'projects', label: 'Work' },
+    { id: 'skills', label: 'Toolbox' },
     { id: 'experience', label: 'Experience' },
     { id: 'contact', label: 'Contact' },
   ],
@@ -67,10 +67,7 @@ export default function Nav({ mode, target, onToggle, hint }) {
               <span className="accent">~/</span>shahzaib<span className="blink">_</span>
             </>
           ) : (
-            <>
-              <span className="logo-mark">SK</span>
-              <span>Shahzaib Khateeb</span>
-            </>
+            <span className="d-logo">Shahzaib Khateeb</span>
           )}
         </a>
         <nav className="nav-links" aria-label="Sections">

@@ -101,12 +101,9 @@ export default function Portrait({ target, mode }) {
             </span>
           </div>
         ) : (
-          <div className="chips" key="chips" aria-hidden="true">
-            <span className="chip c1">&lt;/&gt; Developer</span>
-            <span className="chip c2">🐍 Python</span>
-            <span className="chip c3">⚛ Next.js</span>
-            <span className="chip c4">✦ AI</span>
-          </div>
+          <p className="d-caption" key="cap">
+            Fig. 1 — The day shift. Flip the switch up top to meet the night shift.
+          </p>
         )}
       </div>
     </div>

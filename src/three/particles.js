@@ -61,7 +61,7 @@ const frag = /* glsl */ `
     vec3 hack = mix(uHackA, uHackB, vAccent);
     vec3 dev = mix(uDevA, uDevB, vAccent);
     vec3 col = mix(hack, dev, vMix);
-    float tw = mix(vTw, 0.75 + vTw * 0.25, vMix);
+    float tw = mix(vTw, 0.42 + vTw * 0.12, vMix);
     gl_FragColor = vec4(col, a * tw * uOpacity);
   }
 `
@@ -165,8 +165,8 @@ export function createParticles(canvas, { mode, lowPower, reducedMotion, anchor 
     uOpacity: { value: 1 },
     uHackA: { value: new THREE.Color('#00ff88') },
     uHackB: { value: new THREE.Color('#00d9ff') },
-    uDevA: { value: new THREE.Color('#5b4bff') },
-    uDevB: { value: new THREE.Color('#ff6b3d') },
+    uDevA: { value: new THREE.Color('#16140f') },
+    uDevB: { value: new THREE.Color('#c2410c') },
   }
   const mat = new THREE.ShaderMaterial({
     vertexShader: vert,
@@ -232,7 +232,7 @@ export function createParticles(canvas, { mode, lowPower, reducedMotion, anchor 
     group.rotation.x = 0.18 * (1 - P) + Math.sin(uniforms.uTime.value * 0.3) * 0.06 * P
 
     const sc = Math.min(window.scrollY / h, 1.5)
-    uniforms.uOpacity.value = 1 - Math.min(sc, 1) * 0.72
+    uniforms.uOpacity.value = 1 - Math.min(sc * (1 + P * 0.6), 1) * (0.72 + 0.28 * P)
     camera.position.x += (mouse.x * 0.8 - camera.position.x) * 0.04
     camera.position.y += (-mouse.y * 0.5 + sc * 0.6 - camera.position.y) * 0.04
     camera.position.z = 9 + sc * 1.5

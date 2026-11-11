@@ -2,6 +2,7 @@ import { createRoot } from 'react-dom/client'
 import gsap from 'gsap'
 import App from './App'
 import './styles.css'
+import './dev.css'
 
 // keep transitions time-accurate even when frames are dropped (slow devices / background tabs)
 gsap.ticker.lagSmoothing(0)

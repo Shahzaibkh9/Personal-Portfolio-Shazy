@@ -91,6 +91,7 @@ export const dev = {
     'I am a Computer Science student, software developer, and technology enthusiast focused on developing practical software solutions, AI-powered applications, and digital products.',
     'My work combines software development, artificial intelligence, automation, and product thinking — understanding real-world problems, designing technical solutions, and transforming ideas into functional applications.',
   ],
+  lede: 'I’m a CS student in Karachi who builds web apps, AI tools and automations for real businesses — restaurants, a music brand, online stores.',
   belief: 'Technology should solve meaningful problems, not simply add complexity.',
   status: 'Founder @ Pixel Canvas',
   about: [
