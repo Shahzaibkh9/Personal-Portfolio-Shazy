@@ -275,7 +275,7 @@ function Contact({ onToggle }) {
             </div>
           </div>
           <div className="reveal">
-            <Terminal onToggle={onToggle} />
+            <Terminal variant="kali" onToggle={onToggle} />
           </div>
         </div>
       </div>

@@ -1454,7 +1454,7 @@ html[data-mode='dev'] .tag-sphere-item {
 .term-link:hover {
   text-decoration: underline;
 }
-.term-input {
+.term-input-row {
   display: flex;
   align-items: center;
 }

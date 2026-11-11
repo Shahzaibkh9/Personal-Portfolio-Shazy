@@ -98,7 +98,7 @@ export default function App() {
 
       <Nav mode={mode} target={target} onToggle={toggle} hint={hint && !boot} />
       <Hero mode={mode} target={target} />
-      {mode === 'hacker' ? <HackerSections onToggle={toggle} /> : <DevSections />}
+      {mode === 'hacker' ? <HackerSections onToggle={toggle} /> : <DevSections onToggle={toggle} />}
 
       <footer className="footer">
         <div className="container footer-inner">

@@ -1,6 +1,7 @@
 import { certifications, dev, education } from '../data/content'
 import { links, linkList } from '../data/links'
 import ProjectArt from './ProjectArt'
+import Terminal from './Terminal'
 import { Icon, SectionHead, TagSphere, TiltCard } from './ui'
 
 const M = 'dev'
@@ -213,29 +214,32 @@ function Education() {
   )
 }
 
-function Contact() {
+function Contact({ onToggle }) {
   return (
     <section id="contact" className="section">
       <div className="container">
-        <div className="cta-card reveal">
-          <span className="eyebrow">07 — Contact</span>
-          <h2>Let's work together.</h2>
-          <p>{dev.connect}</p>
-          <p className="cta-line">{dev.connectLine}</p>
-          <div className="link-list">
-            {linkList.map((l) => (
-              <a key={l.key} href={l.href} target="_blank" rel="noreferrer" className={`btn ${l.key === 'email' ? 'btn-primary' : 'btn-ghost'}`}>
-                {l.label} <Icon name="ext" size={14} />
-              </a>
-            ))}
+        <div className="cta-card has-term reveal">
+          <div className="cta-copy">
+            <span className="eyebrow">07 — Contact</span>
+            <h2>Let's work together.</h2>
+            <p>{dev.connect}</p>
+            <p className="cta-line">{dev.connectLine}</p>
+            <div className="link-list">
+              {linkList.map((l) => (
+                <a key={l.key} href={l.href} target="_blank" rel="noreferrer" className={`btn ${l.key === 'email' ? 'btn-primary' : 'btn-ghost'}`}>
+                  {l.label} <Icon name="ext" size={14} />
+                </a>
+              ))}
+            </div>
           </div>
+          <Terminal variant="mac" onToggle={onToggle} />
         </div>
       </div>
     </section>
   )
 }
 
-export default function DevSections() {
+export default function DevSections({ onToggle }) {
   return (
     <main className="mode-content">
       <About />
@@ -244,7 +248,7 @@ export default function DevSections() {
       <Experience />
       <Approach />
       <Education />
-      <Contact />
+      <Contact onToggle={onToggle} />
     </main>
   )
 }

@@ -1,0 +1,275 @@
+/* ══════════════════════════════════════════════════════════════
+   TERMINAL WINDOWS
+   .term.kali → Kali Linux terminal (hacker mode)
+   .term.mac  → macOS Terminal (developer mode)
+   ══════════════════════════════════════════════════════════════ */
+.term {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+.term .term-line + .term-line,
+.term .term-out + .term-line {
+  margin-top: 6px;
+}
+
+/* ─────────────── Kali Linux ─────────────── */
+.term.kali {
+  background: rgba(17, 19, 24, 0.94);
+  border: 1px solid #34363c;
+  border-radius: 6px;
+  box-shadow: 0 30px 60px -28px #000, 0 0 40px -22px rgba(0, 255, 136, 0.35);
+  font-family: 'JetBrains Mono', 'DejaVu Sans Mono', monospace;
+  color: #e3e3e3;
+}
+.k-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  height: 34px;
+  padding: 0 10px 0 12px;
+  background: #23252b;
+  border-bottom: 1px solid #1a1b20;
+}
+.k-icon {
+  color: #9fb4c8;
+  display: grid;
+  place-items: center;
+}
+.k-title {
+  flex: 1;
+  text-align: center;
+  font-family: 'Plus Jakarta Sans', 'Cantarell', system-ui, sans-serif;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #d6d6d6;
+  margin-right: 26px;
+}
+.k-controls {
+  display: flex;
+  gap: 6px;
+}
+.k-controls i {
+  position: relative;
+  width: 22px;
+  height: 22px;
+  border-radius: 4px;
+  display: block;
+}
+.k-controls i:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+.k-min::after {
+  content: '';
+  position: absolute;
+  left: 7px;
+  right: 7px;
+  bottom: 7px;
+  height: 1.5px;
+  background: #cfcfcf;
+}
+.k-max::after {
+  content: '';
+  position: absolute;
+  inset: 6px;
+  border: 1.5px solid #cfcfcf;
+  border-radius: 1px;
+}
+.k-close::before,
+.k-close::after {
+  content: '';
+  position: absolute;
+  left: 5px;
+  right: 5px;
+  top: 10px;
+  height: 1.5px;
+  background: #cfcfcf;
+  transform: rotate(45deg);
+}
+.k-close::after {
+  transform: rotate(-45deg);
+}
+.k-close:hover {
+  background: #e5484d !important;
+}
+.k-menu {
+  display: flex;
+  gap: 18px;
+  padding: 5px 14px;
+  background: #1c1e23;
+  border-bottom: 1px solid #2c2e34;
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-size: 0.76rem;
+  color: #bdbdbd;
+}
+.term.kali .term-body {
+  background: transparent;
+  color: #e3e3e3;
+}
+.term.kali .term-out {
+  color: #c9c9c9;
+}
+.term.kali .term-link {
+  color: #00ff88;
+}
+.k-frame {
+  color: #2ecc71;
+}
+.k-user {
+  color: #3b8eea;
+  font-weight: 700;
+}
+.k-path {
+  color: #ffffff;
+  font-weight: 700;
+}
+.term.kali .term-input input {
+  color: #ffffff;
+  caret-color: #ffffff;
+}
+.term.kali .term-chips {
+  border-top: 1px solid #2c2e34;
+  background: #1a1c21;
+}
+.term.kali .term-chips button {
+  color: #00ff88;
+  border-color: rgba(0, 255, 136, 0.45);
+}
+
+/* ─────────────── macOS Terminal ─────────────── */
+.term.mac {
+  background: #ffffff;
+  border: 0;
+  border-radius: 11px;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.18), 0 28px 60px -18px rgba(0, 0, 0, 0.55);
+  font-family: 'SF Mono', Menlo, Monaco, 'JetBrains Mono', Consolas, monospace;
+  color: #1d1d1f;
+  backdrop-filter: none;
+  overflow: hidden;
+}
+.m-bar {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 32px;
+  padding: 0 12px;
+  background: #ececec;
+  border-bottom: 1px solid #d0d0d0;
+}
+.m-lights {
+  display: flex;
+  gap: 8px;
+  position: relative;
+  z-index: 1;
+}
+.m-lights i {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  display: block;
+  box-shadow: inset 0 0 0 0.5px rgba(0, 0, 0, 0.2);
+}
+.m-lights i:nth-child(1) {
+  background: #ff5f57;
+}
+.m-lights i:nth-child(2) {
+  background: #febc2e;
+}
+.m-lights i:nth-child(3) {
+  background: #28c840;
+}
+.m-title {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #4d4d4d;
+}
+.term.mac .term-body {
+  background: #ffffff;
+  font-size: 0.84rem;
+  line-height: 1.6;
+}
+.term.mac .term-out {
+  color: #1d1d1f;
+}
+.term.mac .term-link {
+  color: #2563eb;
+}
+.m-prompt {
+  color: #1d1d1f;
+}
+.term.mac .term-input input {
+  color: #1d1d1f;
+  caret-color: #7a7a7a;
+  font-family: inherit;
+}
+.term.mac .term-chips {
+  border-top: 1px solid #e3e3e3;
+  background: #f6f6f6;
+}
+.term.mac .term-chips button {
+  font-family: inherit;
+  color: #1d1d1f;
+  background: #ffffff;
+  border: 1px solid #d0d0d0;
+  border-radius: 6px;
+}
+.term.mac .term-chips button:hover {
+  background: #ececec;
+}
+
+/* contact card with terminal (developer mode) */
+.cta-card.has-term {
+  /* clip (not hidden) so focusing the terminal input can never scroll the card sideways */
+  overflow: hidden;
+  overflow: clip;
+  display: grid;
+  grid-template-columns: 1fr 1.15fr;
+  gap: 44px;
+  align-items: center;
+  text-align: left;
+}
+.cta-card.has-term p {
+  margin-left: 0;
+  margin-right: 0;
+}
+.cta-card.has-term .link-list {
+  justify-content: flex-start;
+}
+.cta-card.has-term .term {
+  position: relative;
+  z-index: 1;
+}
+.cta-card.has-term .term-body {
+  height: 280px;
+}
+
+@media (max-width: 920px) {
+  .cta-card.has-term {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+}
+@media (max-width: 600px) {
+  .k-menu {
+    gap: 12px;
+    font-size: 0.7rem;
+  }
+  .k-title {
+    margin-right: 0;
+    font-size: 0.72rem;
+  }
+  .m-title {
+    font-size: 0.7rem;
+    padding-left: 60px;
+  }
+  .term.mac .term-body {
+    font-size: 0.76rem;
+  }
+}
