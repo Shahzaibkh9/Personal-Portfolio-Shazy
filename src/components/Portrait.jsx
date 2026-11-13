@@ -5,13 +5,15 @@ import { isTouch, lowPower, reducedMotion, webglOK } from '../env'
 const N = 46
 const src = (i) => `/portrait/f${String(i).padStart(2, '0')}.webp`
 
-export default function Portrait({ target, mode }) {
+export default function Portrait({ target, mode, instant = false }) {
   const wrapRef = useRef(null)
   const canvasRef = useRef(null)
   const api = useRef(null)
   const [ready, setReady] = useState(false)
   const targetRef = useRef(target)
   targetRef.current = target
+  const instantRef = useRef(instant)
+  instantRef.current = instant
 
   useEffect(() => {
     if (!webglOK) return
@@ -45,7 +47,7 @@ export default function Portrait({ target, mode }) {
   }, [])
 
   useEffect(() => {
-    if (api.current) api.current.setMode(target)
+    if (api.current) api.current.setMode(target, instantRef.current)
   }, [target])
 
   // gentle 3D tilt following the pointer

@@ -2,11 +2,13 @@ import { useEffect, useRef } from 'react'
 import { createParticles } from '../three/particles'
 import { lowPower, reducedMotion, webglOK } from '../env'
 
-export default function Background({ target }) {
+export default function Background({ target, instant = false }) {
   const ref = useRef(null)
   const api = useRef(null)
   const targetRef = useRef(target)
   targetRef.current = target
+  const instantRef = useRef(instant)
+  instantRef.current = instant
 
   useEffect(() => {
     if (!webglOK) return
@@ -36,7 +38,7 @@ export default function Background({ target }) {
   }, [])
 
   useEffect(() => {
-    if (api.current) api.current.setMode(target)
+    if (api.current) api.current.setMode(target, instantRef.current)
   }, [target])
 
   return <canvas ref={ref} className="bg-canvas" aria-hidden="true" />

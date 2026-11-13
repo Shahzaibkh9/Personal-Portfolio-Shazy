@@ -150,12 +150,13 @@ export function createPortrait(canvas, frames, { mode, reducedMotion, lowPower }
 
   let tl = null
   return {
-    setMode(m) {
+    setMode(m, instant = false) {
       const toHack = m === 'hacker'
       if (tl) tl.kill()
-      if (reducedMotion) {
+      if (instant || reducedMotion) {
         state.frame = toHack ? last : 0
         uniforms.uHack.value = toHack ? 1 : 0
+        uniforms.uGlitch.value = 0
         return
       }
       const D = 2.1

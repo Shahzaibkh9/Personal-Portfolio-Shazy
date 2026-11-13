@@ -20,12 +20,12 @@ export const cyber = {
     'I am a Computer Science student focused on cybersecurity, information security, ethical hacking, and security research.',
     'My interests lie at the intersection of offensive and defensive security — vulnerability assessment, penetration testing, security monitoring, application security, and emerging AI security challenges.',
   ],
-  status: 'InfoSec Intern @ Pakistan Stock Exchange',
+  status: 'Information Security @ Pakistan Stock Exchange',
   about: [
     'My interest in cybersecurity comes from a broader fascination with how technology works beneath the surface.',
     'I believe understanding how systems are attacked is essential to understanding how they should be protected.',
     'I am particularly interested in web application security, vulnerability assessment and penetration testing (VAPT), security operations, and the security implications of artificial intelligence.',
-    'I am currently gaining practical exposure to enterprise information security environments through my Information Security internship at the Pakistan Stock Exchange (PSX).',
+    'I am currently gaining practical exposure to enterprise information security environments in the Information Security department at the Pakistan Stock Exchange (PSX).',
     'My long-term goal is to develop expertise in offensive security and security research while building a strong understanding of enterprise security architecture and defensive security operations.',
   ],
   interests: [
@@ -51,7 +51,7 @@ export const cyber = {
     },
   ],
   experience: {
-    role: 'Information Security Intern',
+    role: 'Information Security',
     org: 'Pakistan Stock Exchange (PSX)',
     dept: 'Information Security',
     period: 'October 2026 – Present',

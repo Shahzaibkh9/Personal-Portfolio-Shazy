@@ -26,6 +26,32 @@ const P = {
   rocket: 'M5 15c-1.5 1.5-2 5-2 5s3.5-.5 5-2M9 15l-3-3c1-4 4-8 9-9 1 0 2 0 3 1 1 1 1 2 1 3-1 5-5 8-9 9zM14 10a1 1 0 100-2 1 1 0 000 2z',
   bulb: 'M9 18h6M10 22h4M12 2a7 7 0 00-4 12.7V17h8v-2.3A7 7 0 0012 2z',
   layers: 'M12 2l10 5-10 5L2 7zM2 12l10 5 10-5M2 17l10 5 10-5',
+  linkedin: 'M5 3h14a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2zM8 10.5V17M8 7.2v.01M12 17v-6.5M12 13.6c0-1.9 1.1-3.1 2.7-3.1 1.5 0 2.3 1 2.3 2.8V17',
+  instagram: 'M7.5 3h9A4.5 4.5 0 0121 7.5v9a4.5 4.5 0 01-4.5 4.5h-9A4.5 4.5 0 013 16.5v-9A4.5 4.5 0 017.5 3zM12 16a4 4 0 100-8 4 4 0 000 8zM17.2 6.8v.01',
+}
+
+/* ───────────── Social icon links (for people who skip the terminal) ───────────── */
+const SOCIAL_ICON = { email: 'mail', linkedin: 'linkedin', instagram: 'instagram', github: 'code' }
+
+export function SocialLinks({ links, mode }) {
+  if (!links.length) return null
+  return (
+    <div className={`socials ${mode}`}>
+      {links.map((l) => (
+        <a
+          key={l.key}
+          className="social"
+          href={l.href}
+          {...(l.key === 'email' ? {} : { target: '_blank', rel: 'noreferrer' })}
+          aria-label={l.key === 'email' ? `Email ${l.href.replace('mailto:', '')}` : `${l.label} profile`}
+          title={l.key === 'email' ? l.href.replace('mailto:', '') : l.label}
+        >
+          <Icon name={SOCIAL_ICON[l.key] || 'link'} size={22} />
+          <span>{mode === 'hacker' ? l.label.toLowerCase() : l.label}</span>
+        </a>
+      ))}
+    </div>
+  )
 }
 
 export function Icon({ name, size = 22, className = '', stroke = 1.8 }) {

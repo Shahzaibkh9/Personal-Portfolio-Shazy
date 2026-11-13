@@ -70,13 +70,13 @@ function DevHero() {
   )
 }
 
-export default function Hero({ mode, target }) {
+export default function Hero({ mode, target, entered = 0, instant = false }) {
   return (
     <section id="home" className="hero" aria-label={`${NAME} introduction`}>
       <div className="container hero-grid">
-        {mode === 'hacker' ? <HackerHero /> : <DevHero />}
+        {mode === 'hacker' ? <HackerHero key={`h${entered}`} /> : <DevHero key={`d${entered}`} />}
         <div className="hero-visual">
-          <Portrait target={target} mode={mode} />
+          <Portrait target={target} mode={mode} instant={instant} />
         </div>
       </div>
       <a href="#about" className="scroll-hint" aria-label="Scroll down">

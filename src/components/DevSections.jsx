@@ -2,7 +2,7 @@ import { certifications, dev, education } from '../data/content'
 import { links, linkList } from '../data/links'
 import ProjectArt from './ProjectArt'
 import Terminal from './Terminal'
-import { Icon, SectionHead, TagSphere, TiltCard } from './ui'
+import { Icon, SectionHead, SocialLinks, TagSphere, TiltCard } from './ui'
 
 const M = 'dev'
 
@@ -224,13 +224,7 @@ function Contact({ onToggle }) {
             <h2>Let's work together.</h2>
             <p>{dev.connect}</p>
             <p className="cta-line">{dev.connectLine}</p>
-            <div className="link-list">
-              {linkList.map((l) => (
-                <a key={l.key} href={l.href} target="_blank" rel="noreferrer" className={`btn ${l.key === 'email' ? 'btn-primary' : 'btn-ghost'}`}>
-                  {l.label} <Icon name="ext" size={14} />
-                </a>
-              ))}
-            </div>
+            <SocialLinks links={linkList} mode="dev" />
           </div>
           <Terminal variant="mac" onToggle={onToggle} />
         </div>

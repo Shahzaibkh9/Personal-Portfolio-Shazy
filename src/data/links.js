@@ -3,8 +3,9 @@
 //  Leave a value as '' to hide that link everywhere on the site.
 // ─────────────────────────────────────────────────────────────
 export const links = {
-  email: '',        // e.g. 'you@example.com'
-  linkedin: '',     // e.g. 'https://www.linkedin.com/in/your-handle'
+  email: 'shahzaibkhateeb1@gmail.com',
+  linkedin: 'https://www.linkedin.com/in/muhammad-shahzaib-khateeb/',
+  instagram: 'https://www.instagram.com/shahzaibkh9/',
   github: '',       // e.g. 'https://github.com/your-handle'
   tryhackme: '',    // optional
   hackthebox: '',   // optional
@@ -15,6 +16,7 @@ export const links = {
 export const linkList = [
   { key: 'email', label: 'Email', cmd: 'mail' },
   { key: 'linkedin', label: 'LinkedIn', cmd: 'linkedin' },
+  { key: 'instagram', label: 'Instagram', cmd: 'instagram' },
   { key: 'github', label: 'GitHub', cmd: 'github' },
   { key: 'tryhackme', label: 'TryHackMe', cmd: 'thm' },
   { key: 'hackthebox', label: 'HackTheBox', cmd: 'htb' },

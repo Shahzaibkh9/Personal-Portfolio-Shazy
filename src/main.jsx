@@ -3,6 +3,7 @@ import gsap from 'gsap'
 import App from './App'
 import './styles.css'
 import './terminals.css'
+import './launch.css'
 
 // keep transitions time-accurate even when frames are dropped (slow devices / background tabs)
 gsap.ticker.lagSmoothing(0)

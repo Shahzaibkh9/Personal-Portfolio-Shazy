@@ -242,7 +242,12 @@ export function createParticles(canvas, { mode, lowPower, reducedMotion, anchor 
   raf = requestAnimationFrame(loop)
 
   return {
-    setMode(m) {
+    setMode(m, instant = false) {
+      if (instant) {
+        gsap.killTweensOf(uniforms.uP)
+        uniforms.uP.value = m === 'dev' ? 1 : 0
+        return
+      }
       gsap.to(uniforms.uP, {
         value: m === 'dev' ? 1 : 0,
         duration: reducedMotion ? 0.6 : 2.2,

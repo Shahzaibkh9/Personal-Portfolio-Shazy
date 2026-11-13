@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { certifications, cyber, education } from '../data/content'
 import { linkList } from '../data/links'
 import Terminal from './Terminal'
-import { Icon, SectionHead, TagSphere, TiltCard, Window } from './ui'
+import { Icon, SectionHead, SocialLinks, TagSphere, TiltCard, Window } from './ui'
 
 const M = 'hacker'
 
@@ -27,7 +27,7 @@ function About() {
               {'{\n'}
               <J k="name" v="Muhammad Shahzaib Khateeb" />
               <J k="location" v="Karachi, Pakistan" />
-              <J k="role" v="Information Security Intern" />
+              <J k="role" v="Information Security" />
               <J k="org" v="Pakistan Stock Exchange" />
               <J k="education" v="BS Computer Science @ FUUAST" />
               <span className="j-k">  "focus"</span>: [{'\n'}
@@ -266,13 +266,8 @@ function Contact({ onToggle }) {
         <div className="contact-grid">
           <div className="reveal">
             <p className="lead">{cyber.connect}</p>
-            <div className="link-list">
-              {linkList.map((l) => (
-                <a key={l.key} href={l.href} target="_blank" rel="noreferrer" className="btn btn-ghost">
-                  ./{l.cmd} <Icon name="ext" size={14} />
-                </a>
-              ))}
-            </div>
+            <p className="socials-hint">{'// not a terminal person? just tap:'}</p>
+            <SocialLinks links={linkList} mode="hacker" />
           </div>
           <div className="reveal">
             <Terminal variant="kali" onToggle={onToggle} />

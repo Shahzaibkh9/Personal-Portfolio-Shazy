@@ -1,7 +1,8 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import Background from './components/Background'
 import DevSections from './components/DevSections'
-import { BootScreen, MatrixRain, SwitchOverlay } from './components/Effects'
+import { MatrixRain, SwitchOverlay } from './components/Effects'
+import Launch from './components/Launch'
 import HackerSections from './components/HackerSections'
 import Hero from './components/Hero'
 import Nav from './components/Nav'
@@ -37,52 +38,68 @@ export default function App() {
   const [target, setTarget] = useState(initialMode) // drives 3D + portrait (instant)
   const [mode, setMode] = useState(initialMode) // drives content + theme (mid-glitch)
   const [overlay, setOverlay] = useState({ to: null, n: 0 })
-  const [hint, setHint] = useState(true)
-  const [boot, setBoot] = useState(() => {
-    if (initialMode !== 'hacker' || reducedMotion) return false
-    try {
-      return !sessionStorage.getItem('booted')
-    } catch (e) {
-      return true
-    }
-  })
+  const [hint, setHint] = useState(false)
+  const [gate, setGate] = useState(true) // landing gate shown on every visit
+  const [entered, setEntered] = useState(0) // bumps when the gate opens → replays hero intro
+  const [instant, setInstant] = useState(false) // landing choice → swap portrait/3D with no animation
   const busy = useRef(false)
   const targetRef = useRef(target)
   targetRef.current = target
+
+  const applyMode = useCallback((next) => {
+    setMode(next)
+    document.documentElement.setAttribute('data-mode', next)
+    const meta = document.querySelector('meta[name="theme-color"]')
+    if (meta) meta.setAttribute('content', next === 'hacker' ? '#050807' : '#f6f5f2')
+    saveMode(next)
+  }, [])
+
+  // gate: visitor picked a side — set that mode directly (doors hide the change)
+  const chooseFromGate = useCallback(
+    (m) => {
+      if (m !== targetRef.current) {
+        setInstant(true)
+        setTarget(m)
+        applyMode(m)
+      }
+      window.scrollTo(0, 0)
+      setEntered((n) => n + 1)
+    },
+    [applyMode],
+  )
+
+  const closeGate = useCallback(() => {
+    setGate(false)
+    setHint(true)
+  }, [])
+
+  // lock page scroll while the gate is up
+  useEffect(() => {
+    document.documentElement.style.overflow = gate ? 'hidden' : ''
+  }, [gate])
 
   const toggle = useCallback(() => {
     if (busy.current) return
     busy.current = true
     setHint(false)
     const next = targetRef.current === 'hacker' ? 'dev' : 'hacker'
+    setInstant(false)
     setTarget(next)
     setOverlay((o) => ({ to: next, n: o.n + 1 }))
-    setTimeout(() => {
-      setMode(next)
-      document.documentElement.setAttribute('data-mode', next)
-      const meta = document.querySelector('meta[name="theme-color"]')
-      if (meta) meta.setAttribute('content', next === 'hacker' ? '#050807' : '#f6f5f2')
-      saveMode(next)
-    }, SWAP_AT)
+    setTimeout(() => applyMode(next), SWAP_AT)
     setTimeout(() => {
       busy.current = false
       setOverlay((o) => ({ ...o, to: null }))
     }, DONE_AT)
-  }, [])
+  }, [applyMode])
 
   useEffect(() => {
-    const t = setTimeout(() => setHint(false), 9000)
+    if (!hint) return
+    const t = setTimeout(() => setHint(false), 8000)
     return () => clearTimeout(t)
-  }, [])
+  }, [hint])
 
   useReveal(mode)
-
-  const endBoot = useCallback(() => {
-    setBoot(false)
-    try {
-      sessionStorage.setItem('booted', '1')
-    } catch (e) {}
-  }, [])
 
   return (
     <>
@@ -93,11 +110,11 @@ export default function App() {
         <div className="blob b3" />
       </div>
       <MatrixRain active={target === 'hacker'} />
-      <Background target={target} />
+      <Background target={target} instant={instant} />
       <div className="scanlines" aria-hidden="true" />
 
-      <Nav mode={mode} target={target} onToggle={toggle} hint={hint && !boot} />
-      <Hero mode={mode} target={target} />
+      <Nav mode={mode} target={target} onToggle={toggle} hint={hint} />
+      <Hero mode={mode} target={target} entered={entered} instant={instant} />
       {mode === 'hacker' ? <HackerSections onToggle={toggle} /> : <DevSections onToggle={toggle} />}
 
       <footer className="footer">
@@ -113,7 +130,7 @@ export default function App() {
       </footer>
 
       <SwitchOverlay to={overlay.to} n={overlay.n} />
-      {boot && <BootScreen onDone={endBoot} />}
+      {gate && <Launch onChoose={chooseFromGate} onDone={closeGate} />}
     </>
   )
 }
