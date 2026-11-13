@@ -109,12 +109,12 @@ export default function App() {
         <div className="blob b2" />
         <div className="blob b3" />
       </div>
-      <MatrixRain active={target === 'hacker'} />
-      <Background target={target} instant={instant} />
+      <MatrixRain active={target === 'hacker' && !gate} />
+      <Background target={target} instant={instant} paused={gate} />
       <div className="scanlines" aria-hidden="true" />
 
       <Nav mode={mode} target={target} onToggle={toggle} hint={hint} />
-      <Hero mode={mode} target={target} entered={entered} instant={instant} />
+      <Hero mode={mode} target={target} entered={entered} instant={instant} paused={gate} />
       {mode === 'hacker' ? <HackerSections onToggle={toggle} /> : <DevSections onToggle={toggle} />}
 
       <footer className="footer">

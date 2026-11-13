@@ -127,6 +127,7 @@ export function createPortrait(canvas, frames, { mode, reducedMotion, lowPower }
   ro.observe(canvas)
 
   let visible = true
+  let paused = false
   const io = new IntersectionObserver(([e]) => (visible = e.isIntersecting))
   io.observe(canvas)
 
@@ -136,7 +137,7 @@ export function createPortrait(canvas, frames, { mode, reducedMotion, lowPower }
     raf = requestAnimationFrame(loop)
     const dt = Math.min((now - prev) / 1000, 0.05)
     prev = now
-    if (!visible || document.hidden) return
+    if (paused || !visible || document.hidden) return
     uniforms.uTime.value += reducedMotion ? 0 : dt
     const f = Math.round(state.frame)
     if (f !== shown) {
@@ -150,6 +151,9 @@ export function createPortrait(canvas, frames, { mode, reducedMotion, lowPower }
 
   let tl = null
   return {
+    setPaused(p) {
+      paused = p
+    },
     setMode(m, instant = false) {
       const toHack = m === 'hacker'
       if (tl) tl.kill()

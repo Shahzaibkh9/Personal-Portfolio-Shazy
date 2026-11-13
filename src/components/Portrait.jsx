@@ -5,7 +5,7 @@ import { isTouch, lowPower, reducedMotion, webglOK } from '../env'
 const N = 46
 const src = (i) => `/portrait/f${String(i).padStart(2, '0')}.webp`
 
-export default function Portrait({ target, mode, instant = false }) {
+export default function Portrait({ target, mode, instant = false, paused = false }) {
   const wrapRef = useRef(null)
   const canvasRef = useRef(null)
   const api = useRef(null)
@@ -14,6 +14,8 @@ export default function Portrait({ target, mode, instant = false }) {
   targetRef.current = target
   const instantRef = useRef(instant)
   instantRef.current = instant
+  const pausedRef = useRef(paused)
+  pausedRef.current = paused
 
   useEffect(() => {
     if (!webglOK) return
@@ -34,6 +36,7 @@ export default function Portrait({ target, mode, instant = false }) {
       if (dead) return
       try {
         api.current = createPortrait(canvasRef.current, imgs, { mode: targetRef.current, reducedMotion, lowPower })
+        api.current.setPaused(pausedRef.current)
         setReady(true)
       } catch (e) {
         console.warn('Portrait shader disabled:', e)
@@ -49,6 +52,10 @@ export default function Portrait({ target, mode, instant = false }) {
   useEffect(() => {
     if (api.current) api.current.setMode(target, instantRef.current)
   }, [target])
+
+  useEffect(() => {
+    if (api.current) api.current.setPaused(paused)
+  }, [paused])
 
   // gentle 3D tilt following the pointer
   useEffect(() => {

@@ -217,12 +217,14 @@ export function createParticles(canvas, { mode, lowPower, reducedMotion, anchor 
 
   let spin = 0
   let raf = 0
+  let paused = false
   let last = performance.now()
   const speed = reducedMotion ? 0.25 : 1
   const loop = (now) => {
     raf = requestAnimationFrame(loop)
     const dt = Math.min((now - last) / 1000, 0.05)
     last = now
+    if (paused) return
     uniforms.uTime.value += dt * speed
     const P = uniforms.uP.value
     spin += dt * 0.12 * speed
@@ -242,6 +244,9 @@ export function createParticles(canvas, { mode, lowPower, reducedMotion, anchor 
   raf = requestAnimationFrame(loop)
 
   return {
+    setPaused(p) {
+      paused = p
+    },
     setMode(m, instant = false) {
       if (instant) {
         gsap.killTweensOf(uniforms.uP)
